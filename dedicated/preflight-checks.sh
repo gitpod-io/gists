@@ -8,15 +8,11 @@ MAX_VPCS=4
 MAX_EIPS=20
 
 ORANGE='\033[0;33m'
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 WHITE='\033[0;37m'
-MAGENTA='\033[0;35m'
 NO_COLOR='\033[0m'
 
-echo -e ${ORANGE}
+echo -e "${ORANGE}"
 cat << "EOF"
    _____  _  _                      _ 
   / ____|(_)| |                    | |
@@ -27,9 +23,9 @@ cat << "EOF"
                  | |                  
                  |_|                                  
 EOF
-echo -e ${NO_COLOR}${CYAN}"         Always ready-to-code."${NO_COLOR}
+echo -e "${NO_COLOR}""${CYAN}""         Always ready-to-code.""${NO_COLOR}"
 echo ""
-echo -e ${WHITE}"Welcome to the Gitpod Dedicated preflight check."${NO_COLOR}
+echo -e "${WHITE}""Welcome to the Gitpod Dedicated preflight check.""${NO_COLOR}"
 
 # Check if the AWS CLI is installed
 if ! command -v aws &>/dev/null; then
@@ -52,16 +48,16 @@ VPC_MAX_VPCS_QUOTA_NAME="VPCs per Region"
 VPC_MAX_EIPS_QUOTA_NAME="EC2-VPC Elastic IPs"
 
 # Get the quota code for 'Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances'
-QCODE_EC2_INSTANCES=$(aws service-quotas list-service-quotas --service-code ec2 --region $REGION --query "Quotas[?ServiceName=='Amazon Elastic Compute Cloud (Amazon EC2)' && QuotaName=='$EC2_INSTANCES_QUOTA_NAME'].QuotaCode" --output text)
+QCODE_EC2_INSTANCES=$(aws service-quotas list-service-quotas --service-code ec2 --region "$REGION" --query "Quotas[?ServiceName=='Amazon Elastic Compute Cloud (Amazon EC2)' && QuotaName=='$EC2_INSTANCES_QUOTA_NAME'].QuotaCode" --output text)
 
 # Get the quota code for number of concurrent lambda executions
-QCODE_LAMBDA_CONCURRENT_EXECUTIONS=$(aws service-quotas list-service-quotas --service-code lambda --region $REGION --query "Quotas[?ServiceName=='AWS Lambda' && QuotaName=='$LAMBDA_CONCURRENT_EXECUTIONS_QUOTA_NAME'].QuotaCode" --output text)
+QCODE_LAMBDA_CONCURRENT_EXECUTIONS=$(aws service-quotas list-service-quotas --service-code lambda --region "$REGION" --query "Quotas[?ServiceName=='AWS Lambda' && QuotaName=='$LAMBDA_CONCURRENT_EXECUTIONS_QUOTA_NAME'].QuotaCode" --output text)
 
 # Get the quota code for the max number of VPCs in the region
-QCODE_VPC_MAX_VPCS=$(aws service-quotas list-service-quotas --service-code vpc --region $REGION --query "Quotas[?ServiceName=='Amazon Virtual Private Cloud (Amazon VPC)' && QuotaName=='$VPC_MAX_VPCS_QUOTA_NAME'].QuotaCode" --output text)
+QCODE_VPC_MAX_VPCS=$(aws service-quotas list-service-quotas --service-code vpc --region "$REGION" --query "Quotas[?ServiceName=='Amazon Virtual Private Cloud (Amazon VPC)' && QuotaName=='$VPC_MAX_VPCS_QUOTA_NAME'].QuotaCode" --output text)
 
 # Get the quota code for the maximum number of elastic IPs in a VPC
-QCODE_VPC_MAX_EIPS=$(aws service-quotas list-service-quotas --service-code ec2 --region $REGION --query "Quotas[?ServiceName=='Amazon Elastic Compute Cloud (Amazon EC2)' && QuotaName=='$VPC_MAX_EIPS_QUOTA_NAME'].QuotaCode" --output text)
+QCODE_VPC_MAX_EIPS=$(aws service-quotas list-service-quotas --service-code ec2 --region "$REGION" --query "Quotas[?ServiceName=='Amazon Elastic Compute Cloud (Amazon EC2)' && QuotaName=='$VPC_MAX_EIPS_QUOTA_NAME'].QuotaCode" --output text)
 
 # Function to check resource quota
 function check_resource_quota() {
