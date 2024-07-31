@@ -31,7 +31,7 @@ write_headers
 readonly INTERVAL=10
 readonly DURATION=600
 readonly ITERATIONS=$((DURATION / INTERVAL))
-echo "Collecting PSI info on interval $INTERVAL for duration $DURATION with iterations $ITERATIONS"
+echo "Collecting PSI info every $INTERVAL seconds for $DURATION seconds in $ITERATIONS iterations"
 for ((i=0; i<ITERATIONS; i++)); do
     collect_psi_data
     sleep $INTERVAL
