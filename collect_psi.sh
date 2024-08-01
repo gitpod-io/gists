@@ -5,7 +5,7 @@
 set -eou pipefail
 
 timestamp=$(date +"%Y%m%d_%H%M%S")
-readonly OUTPUT_FILE="/workspace/psi_log_$timestamp.csv"
+readonly OUTPUT_FILE="/$PWD/psi_log_$timestamp.csv"
 
 echo "Writing to OUTPUT_FILE: $OUTPUT_FILE"
 
